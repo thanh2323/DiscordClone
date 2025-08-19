@@ -22,6 +22,10 @@ namespace DiscordClone.Models
         public ICollection<ServerMember> ServerMembersShips { get; set; } = new List<ServerMember>();
 
         public ICollection<Message> Messages { get; set; } = new List<Message>();
-   
+
+        public ICollection<RoomMember> RoomMembers { get; set; } = new List<RoomMember>();
+
+
+
     }
 }

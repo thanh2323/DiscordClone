@@ -35,5 +35,8 @@ namespace DiscordClone.Models
         public  Channel Channel { get; set; } = null!;
         public  ICollection<Message> Messages { get; set; } = new List<Message>();
         public  ICollection<BotRoom> BotRooms { get; set; } = new List<BotRoom>();
+
+        public ICollection<RoomMember> RoomMembers { get; set; } = new List<RoomMember>();
+
     }
 }
