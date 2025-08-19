@@ -239,3 +239,4 @@ D:\DiscordClone\DiscordClone\obj\Debug\net9.0\refint\DiscordClone.dll
 D:\DiscordClone\DiscordClone\obj\Debug\net9.0\DiscordClone.pdb
 D:\DiscordClone\DiscordClone\obj\Debug\net9.0\DiscordClone.genruntimeconfig.cache
 D:\DiscordClone\DiscordClone\obj\Debug\net9.0\ref\DiscordClone.dll
+D:\DiscordClone\DiscordClone\obj\Debug\net9.0\DiscordClone.sourcelink.json

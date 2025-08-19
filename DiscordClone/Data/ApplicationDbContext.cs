@@ -12,7 +12,7 @@ namespace DiscordClone.Data
           : base(options)
         {
         }
-
+    
         public DbSet<Server> Servers { get; set; }
         public DbSet<ServerMember> ServerMembers { get; set; }
         public DbSet<Channel> Channels { get; set; }
@@ -20,6 +20,7 @@ namespace DiscordClone.Data
         public DbSet<Message> Messages { get; set; }
         public DbSet<Bot> Bots { get; set; }
         public DbSet<BotRoom> BotRooms { get; set; }
+        public DbSet<RoomMember> RoomMembers { get; set; }
 
         protected override void OnModelCreating(ModelBuilder builder)
         {
@@ -34,6 +35,7 @@ namespace DiscordClone.Data
             builder.ApplyConfiguration(new MessageConfiguration());
             builder.ApplyConfiguration(new BotConfiguration());
             builder.ApplyConfiguration(new BotRoomConfiguration());
+            builder.ApplyConfiguration(new RoomMemberConfiguration());
         }
     }
 }
