@@ -10,5 +10,8 @@ namespace DiscordClone.Data.Repositories.IRepositories
         Task<Channel> AddAsync(Channel channel);
         Task UpdateAsync(Channel channel);
         Task UpdateRangeAsync(IEnumerable<Channel> channels);
+
+        Task DeleteAsync(Channel channel);
+        Task ReorderChannelsAsync(int serverId, Dictionary<int, int> channelPositions);
     }
 }

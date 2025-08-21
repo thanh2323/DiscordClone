@@ -56,5 +56,22 @@ namespace DiscordClone.Data.Repositories
             _context.Channels.Remove(channel);
             await _context.SaveChangesAsync();
         }
+
+        public async Task ReorderChannelsAsync(int serverId, Dictionary<int, int> channelPositions)
+        {
+            var channels = await _context.Channels
+                .Where(c => c.ServerId == serverId)
+                .ToListAsync();
+
+            foreach (var channel in channels)
+            {
+                if (channelPositions.ContainsKey(channel.Id))
+                {
+                    channel.Position = channelPositions[channel.Id];
+                }
+            }
+
+            await _context.SaveChangesAsync();
+        }
     }
 }

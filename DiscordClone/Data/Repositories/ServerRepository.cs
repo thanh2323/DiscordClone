@@ -21,13 +21,19 @@ namespace DiscordClone.Data.Repositories
 
         public async Task<IEnumerable<Server>> GetAllAsync()
         {
-             return await _context.Servers.ToListAsync();
+            return await _context.Servers.ToListAsync();
         }
-           
+
 
         public async Task AddAsync(Server server)
         {
             await _context.Servers.AddAsync(server);
+            await _context.SaveChangesAsync();
+        }
+
+        public async Task AddMemberAsync(ServerMember serverMember)
+        {
+            await _context.ServerMembers.AddAsync(serverMember);
             await _context.SaveChangesAsync();
         }
 
@@ -42,15 +48,27 @@ namespace DiscordClone.Data.Repositories
             _context.Servers.Remove(server);
             await _context.SaveChangesAsync();
         }
+        public async Task<bool> RemoveMemberAsync(int serverId, string userId)
+        {
+            var member = await _context.ServerMembers.FirstOrDefaultAsync(sm => sm.ServerId == serverId && sm.UserId == userId);
+
+            if (member == null)
+            {
+                return false; // Member not found
+            }
+            _context.ServerMembers.Remove(member);
+            await _context.SaveChangesAsync();
+            return true; // Member removed successfully
+        }
 
 
         public async Task<string> GenerateUniqueInviteCodeAsync()
         {
-           string inviteCode;
+            string inviteCode;
             do
             {
                 inviteCode = GenerateRandomCode();
-            } while ( await _context.Servers.AnyAsync(s => s.InviteCode == inviteCode));
+            } while (await _context.Servers.AnyAsync(s => s.InviteCode == inviteCode));
             return inviteCode;
         }
 
@@ -87,7 +105,17 @@ namespace DiscordClone.Data.Repositories
                 .FirstOrDefaultAsync(s => s.Id == serverId);
 
         }
-
+        /*      public async Task<Server?> GetWithChannelsAndMembersAsync(int serverId)
+              {
+                  return await _context.Servers
+                      .Include(s => s.Channels.OrderBy(c => c.Position))
+                          .ThenInclude(c => c.Rooms)
+                      .Include(s => s.Members)
+                          .ThenInclude(m => m.User)
+                      .Include(s => s.Admin)
+                      .FirstOrDefaultAsync(s => s.Id == serverId);
+              }
+      */
         public async Task<bool> IsUserAdminAsync(int serverId, string userId)
         {
             var server = await _context.Servers
@@ -110,5 +138,7 @@ namespace DiscordClone.Data.Repositories
                .Select(s => s[random.Next(s.Length)]).ToArray());
 
         }
+
+
     }
 }

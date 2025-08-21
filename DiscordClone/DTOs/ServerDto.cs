@@ -1,4 +1,5 @@
-﻿using DiscordClone.Models;
+﻿using DiscordClone.DTOs.Common;
+using DiscordClone.Models;
 
 namespace DiscordClone.DTOs
 {

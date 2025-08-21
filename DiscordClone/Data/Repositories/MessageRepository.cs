@@ -1,4 +1,5 @@
-﻿using DiscordClone.Data.Repositories.IRepositories;
+﻿using System.Linq.Expressions;
+using DiscordClone.Data.Repositories.IRepositories;
 using DiscordClone.Models.DiscordClone.Models;
 using Microsoft.EntityFrameworkCore;
 
@@ -36,6 +37,11 @@ namespace DiscordClone.Data.Repositories
             if (message == null) return false;
             _context.Messages.Update(message);
             return await _context.SaveChangesAsync() > 0;
+        }
+
+        public async Task<int> CountAsync(Expression<Func<Message, bool>> predicate)
+        {
+            return await _context.Messages.CountAsync(predicate);
         }
 
         public async Task<IEnumerable<Message>> GetRoomMessagesAsync(int roomId, int pageSize = 50, int skip = 0)
@@ -95,6 +101,13 @@ namespace DiscordClone.Data.Repositories
             await _context.SaveChangesAsync();
         }
 
- 
+        public async Task<Message?> GetMessageWithRoomAndUserAsync(int messageId)
+        {
+            return await _context.Messages
+                .Include(m => m.Room)
+                    .ThenInclude(r => r.Channel)
+                .Include(m => m.User)
+                .FirstOrDefaultAsync(m => m.Id == messageId);
+        }
     }
 }
