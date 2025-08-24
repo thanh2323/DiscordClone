@@ -1,0 +1,564 @@
+@model DiscordClone.Controllers.ServerViewModel
+@{
+    ViewData["Title"] = Model.Name;
+    
+    // Generate server acronym from name
+    var serverAcronym = string.Join("", Model.Name.Split(' ').Select(word => word.Length > 0 ? word[0].ToString().ToUpper() : ""));
+    if (serverAcronym.Length > 3) serverAcronym = serverAcronym.Substring(0, 3);
+    
+    // Format creation date
+    var createdDate = Model.CreatedAt.ToString("MMMM yyyy");
+}
+
+<div class="server-container">
+    <!-- Server Header -->
+    <div class="server-header">
+        <div class="channel-info">
+            <div class="channel-name"># general</div>
+            <div class="server-info">
+                @if (!string.IsNullOrEmpty(Model.Icon))
+                {
+                    <img src="@Model.Icon" alt="Server Icon" class="server-icon">
+                }
+                else
+                {
+                    <span class="server-acronym">@serverAcronym</span>
+                }
+                <span class="server-name">@Model.Name</span>
+            </div>
+        </div>
+        <div class="server-controls">
+            <i class="fas fa-pencil-alt" title="Edit Channel"></i>
+            <i class="fas fa-bell" title="Notifications"></i>
+            <i class="fas fa-thumbtack" title="Pinned Messages"></i>
+            <i class="fas fa-users" title="Show Member List"></i>
+            <div class="search-container">
+                <i class="fas fa-search"></i>
+                <input type="text" placeholder="Search" class="search-input">
+            </div>
+            <div class="notification-badge">
+                <i class="fas fa-bell"></i>
+                <span class="badge-count">0</span>
+            </div>
+            <i class="fas fa-question-circle" title="Help"></i>
+        </div>
+    </div>
+
+    <!-- Server Content -->
+    <div class="server-content">
+        <div class="welcome-section">
+            <div class="welcome-header">
+                <h1>Welcome to @Model.Name</h1>
+                <p>This is your brand new, shiny server created by @Model.AdminName in @createdDate. Here are some steps to help you get started. For more, check out our <a href="#" class="getting-started-link">Getting Started guide</a>.</p>
+                
+                @if (!string.IsNullOrEmpty(Model.Description))
+                {
+                    <div class="server-description">
+                        <p><strong>About this server:</strong> @Model.Description</p>
+                    </div>
+                }
+                
+                <div class="server-stats">
+                    <div class="stat-item">
+                        <span class="stat-number">@Model.MemberCount</span>
+                        <span class="stat-label">Members</span>
+                    </div>
+                    <div class="stat-item">
+                        <span class="stat-number">@Model.ChannelCount</span>
+                        <span class="stat-label">Channels</span>
+                    </div>
+                    @if (!string.IsNullOrEmpty(Model.InviteCode))
+                    {
+                        <div class="stat-item">
+                            <span class="stat-number">@Model.InviteCode</span>
+                            <span class="stat-label">Invite Code</span>
+                        </div>
+                    }
+                </div>
+            </div>
+
+            <div class="action-buttons">
+                <div class="action-button">
+                    <div class="action-icon purple">
+                        <i class="fas fa-user-plus"></i>
+                    </div>
+                    <div class="action-content">
+                        <div class="action-title">Invite your friends</div>
+                        <div class="action-description">Get your server up and running</div>
+                    </div>
+                    <i class="fas fa-chevron-right"></i>
+                </div>
+
+                @if (string.IsNullOrEmpty(Model.Icon))
+                {
+                    <div class="action-button">
+                        <div class="action-icon orange">
+                            <i class="fas fa-paint-brush"></i>
+                        </div>
+                        <div class="action-content">
+                            <div class="action-title">Personalize your server with an icon</div>
+                            <div class="action-description">Give your server some personality</div>
+                        </div>
+                        <i class="fas fa-chevron-right"></i>
+                    </div>
+                }
+
+                <div class="action-button">
+                    <div class="action-icon blue">
+                        <i class="fas fa-paper-plane"></i>
+                    </div>
+                    <div class="action-content">
+                        <div class="action-title">Send your first message</div>
+                        <div class="action-description">Start a conversation</div>
+                    </div>
+                    <i class="fas fa-chevron-right"></i>
+                </div>
+
+                <div class="action-button">
+                    <div class="action-icon green">
+                        <i class="fas fa-download"></i>
+                    </div>
+                    <div class="action-content">
+                        <div class="action-title">Download the Discord App</div>
+                        <div class="action-description">Get the full Discord experience</div>
+                    </div>
+                    <i class="fas fa-chevron-right"></i>
+                </div>
+
+                <div class="action-button">
+                    <div class="action-icon purple">
+                        <i class="fas fa-gamepad"></i>
+                    </div>
+                    <div class="action-content">
+                        <div class="action-title">Add your first app</div>
+                        <div class="action-description">Connect your favorite apps</div>
+                    </div>
+                    <i class="fas fa-chevron-right"></i>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Message Input -->
+    <div class="message-input-container">
+        <div class="message-input-wrapper">
+            <div class="input-attachments">
+                <i class="fas fa-plus"></i>
+            </div>
+            <div class="message-input-area">
+                <textarea class="message-input" placeholder="Message #general" rows="1"></textarea>
+            </div>
+            <div class="input-controls">
+                <i class="fas fa-gift" title="Gift"></i>
+                <i class="fas fa-gif" title="GIF"></i>
+                <i class="fas fa-sticky-note" title="Sticker"></i>
+                <i class="fas fa-smile" title="Emoji"></i>
+                <i class="fas fa-gamepad" title="Activity"></i>
+            </div>
+        </div>
+    </div>
+</div>
+
+<style>
+.server-container {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    background: #36393f;
+}
+
+/* Server Header */
+.server-header {
+    height: 48px;
+    padding: 0 16px;
+    background: #36393f;
+    border-bottom: 1px solid #202225;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+
+.channel-info {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+}
+
+.channel-name {
+    color: #fff;
+    font-size: 16px;
+    font-weight: 600;
+}
+
+.server-info {
+    display: flex;
+    align-items: center;
+    gap: 4px;
+    color: #96989d;
+    font-size: 14px;
+}
+
+.server-acronym {
+    background: #5865f2;
+    color: #fff;
+    width: 20px;
+    height: 20px;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 12px;
+    font-weight: 600;
+}
+
+.server-icon {
+    width: 20px;
+    height: 20px;
+    border-radius: 50%;
+    object-fit: cover;
+}
+
+.server-controls {
+    display: flex;
+    align-items: center;
+    gap: 16px;
+}
+
+.server-controls i {
+    width: 32px;
+    height: 32px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 4px;
+    cursor: pointer;
+    color: #b9bbbe;
+    transition: all 0.2s ease;
+}
+
+.server-controls i:hover {
+    background-color: #40444b;
+    color: #dcddde;
+}
+
+.search-container {
+    position: relative;
+    display: flex;
+    align-items: center;
+}
+
+.search-container i {
+    position: absolute;
+    left: 8px;
+    color: #72767d;
+    font-size: 14px;
+}
+
+.search-input {
+    padding: 6px 8px 6px 28px;
+    background: #202225;
+    border: none;
+    border-radius: 4px;
+    color: #dcddde;
+    font-size: 14px;
+    width: 144px;
+}
+
+.search-input:focus {
+    outline: none;
+    background: #40444b;
+}
+
+.notification-badge {
+    position: relative;
+    cursor: pointer;
+}
+
+.badge-count {
+    position: absolute;
+    top: -4px;
+    right: -4px;
+    background: #f04747;
+    color: #fff;
+    font-size: 10px;
+    padding: 2px 4px;
+    border-radius: 8px;
+    min-width: 16px;
+    text-align: center;
+}
+
+/* Server Content */
+.server-content {
+    flex: 1;
+    padding: 40px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.welcome-section {
+    max-width: 600px;
+    width: 100%;
+}
+
+.welcome-header {
+    text-align: center;
+    margin-bottom: 32px;
+}
+
+.welcome-header h1 {
+    color: #fff;
+    font-size: 32px;
+    font-weight: 700;
+    margin-bottom: 16px;
+}
+
+.welcome-header p {
+    color: #b9bbbe;
+    font-size: 16px;
+    line-height: 1.5;
+}
+
+.getting-started-link {
+    color: #00b0f4;
+    text-decoration: none;
+}
+
+.getting-started-link:hover {
+    text-decoration: underline;
+}
+
+.server-description {
+    background: #2f3136;
+    border-radius: 8px;
+    padding: 16px;
+    margin-bottom: 24px;
+}
+
+.server-description p {
+    color: #dcddde;
+    font-size: 14px;
+    line-height: 1.5;
+}
+
+.server-stats {
+    display: flex;
+    justify-content: space-around;
+    margin-top: 24px;
+    padding: 16px;
+    background: #2f3136;
+    border-radius: 8px;
+}
+
+.stat-item {
+    text-align: center;
+}
+
+.stat-number {
+    color: #fff;
+    font-size: 24px;
+    font-weight: 700;
+    margin-bottom: 4px;
+}
+
+.stat-label {
+    color: #96989d;
+    font-size: 12px;
+}
+
+.action-buttons {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+}
+
+.action-button {
+    display: flex;
+    align-items: center;
+    gap: 16px;
+    padding: 16px;
+    background: #2f3136;
+    border-radius: 8px;
+    cursor: pointer;
+    transition: background 0.2s ease;
+}
+
+.action-button:hover {
+    background: #36393f;
+}
+
+.action-icon {
+    width: 40px;
+    height: 40px;
+    border-radius: 8px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: #fff;
+    font-size: 18px;
+}
+
+.action-icon.purple {
+    background: #5865f2;
+}
+
+.action-icon.orange {
+    background: #faa61a;
+}
+
+.action-icon.blue {
+    background: #00b0f4;
+}
+
+.action-icon.green {
+    background: #43b581;
+}
+
+.action-content {
+    flex: 1;
+}
+
+.action-title {
+    color: #fff;
+    font-size: 16px;
+    font-weight: 600;
+    margin-bottom: 4px;
+}
+
+.action-description {
+    color: #b9bbbe;
+    font-size: 14px;
+}
+
+.action-button i.fa-chevron-right {
+    color: #72767d;
+    font-size: 14px;
+}
+
+/* Message Input */
+.message-input-container {
+    padding: 0 16px 24px;
+}
+
+.message-input-wrapper {
+    background: #40444b;
+    border-radius: 8px;
+    padding: 0 16px;
+    display: flex;
+    align-items: center;
+    gap: 16px;
+}
+
+.input-attachments {
+    width: 32px;
+    height: 32px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 4px;
+    cursor: pointer;
+    color: #b9bbbe;
+    transition: all 0.2s ease;
+}
+
+.input-attachments:hover {
+    background: #4f545c;
+    color: #dcddde;
+}
+
+.message-input-area {
+    flex: 1;
+}
+
+.message-input {
+    width: 100%;
+    background: none;
+    border: none;
+    outline: none;
+    color: #dcddde;
+    font-size: 14px;
+    padding: 12px 0;
+    resize: none;
+    min-height: 44px;
+    max-height: 144px;
+}
+
+.message-input::placeholder {
+    color: #72767d;
+}
+
+.input-controls {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+}
+
+.input-controls i {
+    width: 24px;
+    height: 24px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 4px;
+    cursor: pointer;
+    color: #b9bbbe;
+    transition: all 0.2s ease;
+}
+
+.input-controls i:hover {
+    background: #4f545c;
+    color: #dcddde;
+}
+
+/* Responsive */
+@@media (max-width: 768px) {
+    .server-content {
+        padding: 20px;
+    }
+    
+    .welcome-header h1 {
+        font-size: 24px;
+    }
+    
+    .server-controls {
+        gap: 8px;
+    }
+    
+    .search-input {
+        width: 100px;
+    }
+}
+</style>
+
+@section Scripts {
+    <script>
+        // Auto-resize textarea
+        const messageInput = document.querySelector('.message-input');
+        messageInput.addEventListener('input', function() {
+            this.style.height = 'auto';
+            this.style.height = Math.min(this.scrollHeight, 144) + 'px';
+        });
+
+        // Send message on Enter
+        messageInput.addEventListener('keydown', function(e) {
+            if (e.key === 'Enter' && !e.shiftKey) {
+                e.preventDefault();
+                const message = this.value.trim();
+                if (message) {
+                    console.log('Sending message:', message);
+                    this.value = '';
+                    this.style.height = 'auto';
+                }
+            }
+        });
+
+        // Action button clicks
+        document.querySelectorAll('.action-button').forEach(button => {
+            button.addEventListener('click', function() {
+                const title = this.querySelector('.action-title').textContent;
+                console.log('Clicked:', title);
+                // Handle different actions here
+            });
+        });
+    </script>
+}

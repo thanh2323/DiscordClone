@@ -1,23 +1,23 @@
 {
   "format": 1,
   "restore": {
-    "D:\\DiscordClone\\DiscordClone\\DiscordClone.csproj": {}
+    "C:\\Users\\truon\\source\\repos\\DiscordClone\\DiscordClone\\DiscordClone.csproj": {}
   },
   "projects": {
-    "D:\\DiscordClone\\DiscordClone\\DiscordClone.csproj": {
+    "C:\\Users\\truon\\source\\repos\\DiscordClone\\DiscordClone\\DiscordClone.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "D:\\DiscordClone\\DiscordClone\\DiscordClone.csproj",
+        "projectUniqueName": "C:\\Users\\truon\\source\\repos\\DiscordClone\\DiscordClone\\DiscordClone.csproj",
         "projectName": "DiscordClone",
-        "projectPath": "D:\\DiscordClone\\DiscordClone\\DiscordClone.csproj",
-        "packagesPath": "C:\\Users\\thanh\\.nuget\\packages\\",
-        "outputPath": "D:\\DiscordClone\\DiscordClone\\obj\\",
+        "projectPath": "C:\\Users\\truon\\source\\repos\\DiscordClone\\DiscordClone\\DiscordClone.csproj",
+        "packagesPath": "C:\\Users\\truon\\.nuget\\packages\\",
+        "outputPath": "C:\\Users\\truon\\source\\repos\\DiscordClone\\DiscordClone\\obj\\",
         "projectStyle": "PackageReference",
         "fallbackFolders": [
           "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages"
         ],
         "configFilePaths": [
-          "C:\\Users\\thanh\\AppData\\Roaming\\NuGet\\NuGet.Config",
+          "C:\\Users\\truon\\AppData\\Roaming\\NuGet\\NuGet.Config",
           "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.FallbackLocation.config",
           "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
         ],
@@ -44,7 +44,7 @@
           "auditLevel": "low",
           "auditMode": "direct"
         },
-        "SdkAnalysisLevel": "9.0.200"
+        "SdkAnalysisLevel": "9.0.300"
       },
       "frameworks": {
         "net9.0": {
@@ -102,7 +102,7 @@
               "privateAssets": "all"
             }
           },
-          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\9.0.205/PortableRuntimeIdentifierGraph.json"
+          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\9.0.304/PortableRuntimeIdentifierGraph.json"
         }
       }
     }
