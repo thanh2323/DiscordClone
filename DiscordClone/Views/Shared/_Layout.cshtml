@@ -1,5 +1,5 @@
 ﻿<!DOCTYPE html>
-<html lang="en">
+<html lang="vi">
 <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
@@ -7,44 +7,289 @@
     <script type="importmap"></script>
     <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.min.css" />
     <link rel="stylesheet" href="~/css/site.css" asp-append-version="true" />
+    <link rel="stylesheet" href="~/css/discord.css" asp-append-version="true" />
     <link rel="stylesheet" href="~/DiscordClone.styles.css" asp-append-version="true" />
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
 </head>
 <body>
-    <header>
-        <nav class="navbar navbar-expand-sm navbar-toggleable-sm navbar-light bg-white border-bottom box-shadow mb-3">
-            <div class="container-fluid">
-                <a class="navbar-brand" asp-area="" asp-controller="Home" asp-action="Index">DiscordClone</a>
-                <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target=".navbar-collapse" aria-controls="navbarSupportedContent"
-                        aria-expanded="false" aria-label="Toggle navigation">
-                    <span class="navbar-toggler-icon"></span>
-                </button>
-                <div class="navbar-collapse collapse d-sm-inline-flex justify-content-between">
-                    <ul class="navbar-nav flex-grow-1">
-                        <li class="nav-item">
-                            <a class="nav-link text-dark" asp-area="" asp-controller="Home" asp-action="Index">Home</a>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link text-dark" asp-area="" asp-controller="Home" asp-action="Privacy">Privacy</a>
-                        </li>
-                    </ul>
+    <div class="discord-layout">
+        <!-- Server Sidebar -->
+        <div class="server-sidebar">
+            <div class="server-list">
+                <div class="server-item discord-logo">
+                    <i class="fab fa-discord"></i>
+                </div>
+                <div class="server-separator"></div>
+                <div class="server-item add-server">
+                    <i class="fas fa-plus"></i>
+                </div>
+                <div class="server-item explore">
+                    <i class="fas fa-compass"></i>
+                </div>
+                <div class="server-item download">
+                    <i class="fas fa-download"></i>
                 </div>
             </div>
-        </nav>
-    </header>
-    <div class="container">
-        <main role="main" class="pb-3">
+        </div>
+
+        <!-- Channel Sidebar -->
+        <div class="channel-sidebar">
+            <div class="sidebar-header">
+                <div class="search-container">
+                    <input type="text" class="search-input" placeholder="Find or start a conversation">
+                </div>
+            </div>
+            
+            <div class="sidebar-content">
+                <!-- Friends Section -->
+                <div class="sidebar-section friends-section active" data-section="friends">
+                    <div class="section-header">
+                        <span class="section-title">Friends</span>
+                    </div>
+                    <div class="section-items">
+                        <div class="section-item active" data-item="friends">
+                            <i class="fas fa-user"></i>
+                            <span>Friends</span>
+                        </div>
+                        <div class="section-item" data-item="shop">
+                            <i class="fas fa-shopping-cart"></i>
+                            <span>Shop</span>
+                            <span class="badge new">NEW</span>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Direct Messages Section -->
+                <div class="sidebar-section dm-section" data-section="dm">
+                    <div class="section-header">
+                        <span class="section-title">Direct Messages</span>
+                        <i class="fas fa-plus add-dm"></i>
+                    </div>
+                    <div class="dm-list">
+                        <!-- DM items will be added here -->
+                    </div>
+                </div>
+            </div>
+
+            <!-- User Info -->
+            <div class="user-info">
+                <div class="user-avatar">
+                    <img src="https://via.placeholder.com/32x32/5865f2/fff?text=U" alt="User Avatar">
+                </div>
+                <div class="user-details">
+                    <div class="username">Người dùng</div>
+                    <div class="user-status">Online</div>
+                </div>
+                <div class="user-controls">
+                    <i class="fas fa-microphone"></i>
+                    <i class="fas fa-headphones"></i>
+                    <i class="fas fa-cog"></i>
+                </div>
+            </div>
+        </div>
+
+        <!-- Main Content -->
+        <div class="main-content">
             @RenderBody()
-        </main>
+        </div>
+
+        <!-- Active Now Sidebar -->
+        <div class="active-now-sidebar">
+            <div class="active-now-header">
+                <h3>Active Now</h3>
+            </div>
+            <div class="active-now-content">
+                <div class="active-now-message">
+                    <p>It's quiet for now...</p>
+                    <p>When a friend starts an activity—like playing a game or hanging out on voice—we'll show it here!</p>
+                </div>
+            </div>
+        </div>
     </div>
 
-    <footer class="border-top footer text-muted">
-        <div class="container">
-            &copy; 2025 - DiscordClone - <a asp-area="" asp-controller="Home" asp-action="Privacy">Privacy</a>
+    <!-- Create Server Modal -->
+    <div id="createServerModal" class="modal-overlay">
+        <div class="modal-container">
+            <!-- Step 1: Server Template Selection -->
+            <div class="modal-step" id="step1">
+                <div class="modal-header">
+                    <h2>Create Your Server</h2>
+                    <button class="modal-close" id="closeModal">
+                        <i class="fas fa-times"></i>
+                    </button>
+                </div>
+                
+                <div class="modal-content">
+                    <p class="modal-description">
+                        Your server is where you and your friends hang out. Make yours and start talking.
+                    </p>
+                    
+                    <div class="server-options">
+                        <div class="server-option" data-template="custom">
+                            <div class="option-icon">
+                                <i class="fas fa-plus"></i>
+                            </div>
+                            <div class="option-content">
+                                <div class="option-title">Create My Own</div>
+                                <div class="option-description">Create a server from scratch</div>
+                            </div>
+                        </div>
+                        
+                        <div class="server-option" data-template="gaming">
+                            <div class="option-icon gaming">
+                                <i class="fas fa-gamepad"></i>
+                            </div>
+                            <div class="option-content">
+                                <div class="option-title">Gaming</div>
+                                <div class="option-description">For gaming communities</div>
+                            </div>
+                        </div>
+                        
+                        <div class="server-option" data-template="friends">
+                            <div class="option-icon friends">
+                                <i class="fas fa-users"></i>
+                            </div>
+                            <div class="option-content">
+                                <div class="option-title">Friends</div>
+                                <div class="option-description">For you and your friends</div>
+                            </div>
+                        </div>
+                        
+                        <div class="server-option" data-template="study">
+                            <div class="option-icon study">
+                                <i class="fas fa-graduation-cap"></i>
+                            </div>
+                            <div class="option-content">
+                                <div class="option-title">Study Group</div>
+                                <div class="option-description">For study and learning</div>
+                            </div>
+                        </div>
+                        
+                        <div class="server-option" data-template="club">
+                            <div class="option-icon club">
+                                <i class="fas fa-trophy"></i>
+                            </div>
+                            <div class="option-content">
+                                <div class="option-title">School Club</div>
+                                <div class="option-description">For school clubs and activities</div>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="modal-footer">
+                        <div class="join-server-section">
+                            <span>Have an invite already?</span>
+                            <button class="join-server-btn">Join a Server</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Step 2: Server Purpose -->
+            <div class="modal-step" id="step2" style="display: none;">
+                <div class="modal-header">
+                    <h2>Tell Us More About Your Server</h2>
+                    <button class="modal-close" id="closeModal2">
+                        <i class="fas fa-times"></i>
+                    </button>
+                </div>
+                
+                <div class="modal-content">
+                    <p class="modal-description">
+                        In order to help you with your setup, is your new server for just a few friends or a larger community?
+                    </p>
+                    
+                    <div class="server-purpose-options">
+                        <div class="purpose-option" data-purpose="friends">
+                            <div class="purpose-icon">
+                                <i class="fas fa-couch"></i>
+                            </div>
+                            <div class="purpose-content">
+                                <div class="purpose-title">For me and my friends</div>
+                            </div>
+                            <i class="fas fa-chevron-right"></i>
+                        </div>
+                        
+                        <div class="purpose-option" data-purpose="community">
+                            <div class="purpose-icon community">
+                                <i class="fas fa-globe"></i>
+                            </div>
+                            <div class="purpose-content">
+                                <div class="purpose-title">For a club or community</div>
+                            </div>
+                            <i class="fas fa-chevron-right"></i>
+                        </div>
+                    </div>
+                    
+                    <div class="modal-footer">
+                        <div class="skip-section">
+                            <span>Not sure? You can <button class="skip-btn">skip this question</button> for now.</span>
+                        </div>
+                        <button class="back-btn" id="backToStep1">Back</button>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Step 3: Server Details -->
+            <div class="modal-step" id="step3" style="display: none;">
+                <div class="modal-header">
+                    <h2>Customize Your Server</h2>
+                    <button class="modal-close" id="closeModal3">
+                        <i class="fas fa-times"></i>
+                    </button>
+                </div>
+                
+                <div class="modal-content">
+                    <div class="server-form">
+                        <div class="form-group">
+                            <label for="serverName">SERVER NAME</label>
+                            <input type="text" id="serverName" class="form-input" placeholder="Enter server name" maxlength="100">
+                            <div class="char-count">0/100</div>
+                        </div>
+                        
+                        <div class="form-group">
+                            <label for="serverIcon">SERVER ICON (Optional)</label>
+                            <div class="icon-upload">
+                                <div class="icon-preview">
+                                    <i class="fas fa-image"></i>
+                                </div>
+                                <input type="file" id="serverIcon" accept="image/*" style="display: none;">
+                                <button class="upload-btn" onclick="document.getElementById('serverIcon').click()">
+                                    Upload Image
+                                </button>
+                            </div>
+                        </div>
+                        
+                        <div class="form-group">
+                            <label>DEFAULT CHANNELS</label>
+                            <div class="channel-list">
+                                <div class="channel-item">
+                                    <i class="fas fa-hashtag"></i>
+                                    <span>general</span>
+                                    <i class="fas fa-check"></i>
+                                </div>
+                                <div class="channel-item">
+                                    <i class="fas fa-hashtag"></i>
+                                    <span>random</span>
+                                    <i class="fas fa-check"></i>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="modal-footer">
+                        <button class="back-btn" id="backToStep2">Back</button>
+                        <button class="create-btn" id="createServerBtn">Create Server</button>
+                    </div>
+                </div>
+            </div>
         </div>
-    </footer>
+    </div>
+
     <script src="~/lib/jquery/dist/jquery.min.js"></script>
     <script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
     <script src="~/js/site.js" asp-append-version="true"></script>
+    <script src="~/js/discord.js" asp-append-version="true"></script>
     @await RenderSectionAsync("Scripts", required: false)
 </body>
 </html>
