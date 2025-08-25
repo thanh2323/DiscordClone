@@ -1,9 +1,11 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 17
-VisualStudioVersion = 17.13.35825.156 d17.13
+VisualStudioVersion = 17.13.35825.156
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DiscordClone", "DiscordClone\DiscordClone.csproj", "{915998FC-07AC-45F2-BD7F-5CD909B4281C}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DiscordClone.Test", "DiscordClone.Test\DiscordClone.Test.csproj", "{08E2A30D-974D-4438-B468-04B21A5E89EE}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -15,6 +17,10 @@ Global
 		{915998FC-07AC-45F2-BD7F-5CD909B4281C}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{915998FC-07AC-45F2-BD7F-5CD909B4281C}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{915998FC-07AC-45F2-BD7F-5CD909B4281C}.Release|Any CPU.Build.0 = Release|Any CPU
+		{08E2A30D-974D-4438-B468-04B21A5E89EE}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{08E2A30D-974D-4438-B468-04B21A5E89EE}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{08E2A30D-974D-4438-B468-04B21A5E89EE}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{08E2A30D-974D-4438-B468-04B21A5E89EE}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
