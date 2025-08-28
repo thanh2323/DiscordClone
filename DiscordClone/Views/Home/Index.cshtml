@@ -1,8 +1,308 @@
-﻿@{
-    ViewData["Title"] = "Home Page";
+@{
+    ViewData["Title"] = "DiscordClone - Friends";
 }
 
-<div class="text-center">
-    <h1 class="display-4">Welcome</h1>
-    <p>Learn about <a href="https://learn.microsoft.com/aspnet/core">building Web apps with ASP.NET Core</a>.</p>
+<div class="friends-container">
+    <!-- Navigation Tabs -->
+    <div class="friends-nav">
+        <div class="nav-tabs">
+            <div class="nav-tab" data-tab="friends">
+                <i class="fas fa-user"></i>
+                <span>Friends</span>
+            </div>
+            <div class="nav-tab active" data-tab="add-friend">
+                <i class="fas fa-user-plus"></i>
+                <span>Add Friend</span>
+            </div>
+        </div>
+    </div>
+
+    <!-- Add Friend Content -->
+    <div class="friends-content">
+        <div class="add-friend-section">
+            <div class="add-friend-header">
+                <h1>Add Friend</h1>
+                <p>You can add friends with their Discord username.</p>
+            </div>
+
+            <div class="add-friend-form">
+                <div class="input-group">
+                    <input type="text" class="friend-input" placeholder="You can add friends with their Discord username.">
+                    <button class="send-request-btn">Send Friend Request</button>
+                </div>
+            </div>
+
+            <div class="add-friend-illustration">
+                <div class="discord-character">
+                    <div class="character-body"></div>
+                    <div class="character-eye left"></div>
+                    <div class="character-eye right"></div>
+                    <div class="character-mouth"></div>
+                    <div class="character-leaf"></div>
+                    <div class="character-arm"></div>
+                </div>
+            </div>
+        </div>
+    </div>
 </div>
+
+<style>
+.friends-container {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    background: #36393f;
+}
+
+/* Navigation Tabs */
+.friends-nav {
+    height: 48px;
+    background: #2f3136;
+    border-bottom: 1px solid #202225;
+    display: flex;
+    align-items: center;
+    padding: 0 16px;
+}
+
+.nav-tabs {
+    display: flex;
+    gap: 32px;
+}
+
+.nav-tab {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    padding: 8px 0;
+    color: #96989d;
+    font-size: 14px;
+    font-weight: 500;
+    cursor: pointer;
+    border-bottom: 2px solid transparent;
+    transition: all 0.2s ease;
+}
+
+.nav-tab:hover {
+    color: #dcddde;
+}
+
+.nav-tab.active {
+    color: #fff;
+    border-bottom-color: #5865f2;
+}
+
+.nav-tab i {
+    font-size: 16px;
+}
+
+/* Friends Content */
+.friends-content {
+    flex: 1;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 40px;
+}
+
+.add-friend-section {
+    max-width: 600px;
+    width: 100%;
+    text-align: center;
+}
+
+.add-friend-header {
+    margin-bottom: 32px;
+}
+
+.add-friend-header h1 {
+    color: #fff;
+    font-size: 32px;
+    font-weight: 700;
+    margin-bottom: 8px;
+}
+
+.add-friend-header p {
+    color: #b9bbbe;
+    font-size: 16px;
+    line-height: 1.4;
+}
+
+.add-friend-form {
+    margin-bottom: 40px;
+}
+
+.input-group {
+    display: flex;
+    gap: 12px;
+    max-width: 500px;
+    margin: 0 auto;
+}
+
+.friend-input {
+    flex: 1;
+    padding: 12px 16px;
+    background: #40444b;
+    border: 1px solid #202225;
+    border-radius: 4px;
+    color: #dcddde;
+    font-size: 14px;
+    transition: border-color 0.2s ease;
+}
+
+.friend-input:focus {
+    outline: none;
+    border-color: #5865f2;
+}
+
+.friend-input::placeholder {
+    color: #72767d;
+}
+
+.send-request-btn {
+    padding: 12px 24px;
+    background: #5865f2;
+    color: #fff;
+    border: none;
+    border-radius: 4px;
+    font-size: 14px;
+    font-weight: 500;
+    cursor: pointer;
+    transition: background 0.2s ease;
+    white-space: nowrap;
+}
+
+.send-request-btn:hover {
+    background: #4752c4;
+}
+
+/* Discord Character Illustration */
+.add-friend-illustration {
+    position: relative;
+    height: 200px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.discord-character {
+    position: relative;
+    width: 120px;
+    height: 120px;
+}
+
+.character-body {
+    width: 100px;
+    height: 100px;
+    background: #5865f2;
+    border-radius: 50%;
+    position: absolute;
+    top: 10px;
+    left: 10px;
+}
+
+.character-eye {
+    width: 12px;
+    height: 12px;
+    background: #fff;
+    border-radius: 50%;
+    position: absolute;
+    top: 35px;
+}
+
+.character-eye.left {
+    left: 35px;
+}
+
+.character-eye.right {
+    right: 35px;
+}
+
+.character-mouth {
+    width: 20px;
+    height: 8px;
+    background: #fff;
+    border-radius: 0 0 20px 20px;
+    position: absolute;
+    bottom: 25px;
+    left: 50%;
+    transform: translateX(-50%);
+}
+
+.character-leaf {
+    width: 16px;
+    height: 16px;
+    background: #43b581;
+    border-radius: 50% 0 50% 50%;
+    position: absolute;
+    top: 5px;
+    right: 25px;
+    transform: rotate(45deg);
+}
+
+.character-arm {
+    width: 8px;
+    height: 30px;
+    background: #5865f2;
+    border-radius: 4px;
+    position: absolute;
+    bottom: 20px;
+    right: 15px;
+    transform: rotate(-20deg);
+}
+
+/* Responsive */
+@@media (max-width: 768px) {
+    .friends-content {
+        padding: 20px;
+    }
+    
+    .add-friend-header h1 {
+        font-size: 24px;
+    }
+    
+    .input-group {
+        flex-direction: column;
+    }
+    
+    .send-request-btn {
+        width: 100%;
+    }
+}
+</style>
+
+@section Scripts {
+    <script>
+        // Tab switching functionality
+        document.querySelectorAll('.nav-tab').forEach(tab => {
+            tab.addEventListener('click', function() {
+                // Remove active class from all tabs
+                document.querySelectorAll('.nav-tab').forEach(t => t.classList.remove('active'));
+                
+                // Add active class to clicked tab
+                this.classList.add('active');
+                
+                // Handle tab switching (for future implementation)
+                const tabName = this.dataset.tab;
+                console.log('Switched to tab:', tabName);
+            });
+        });
+
+        // Add friend functionality
+        document.querySelector('.send-request-btn').addEventListener('click', function() {
+            const username = document.querySelector('.friend-input').value.trim();
+            if (username) {
+                alert(`Friend request sent to ${username}!`);
+                document.querySelector('.friend-input').value = '';
+            } else {
+                alert('Please enter a username');
+            }
+        });
+
+        // Enter key to send friend request
+        document.querySelector('.friend-input').addEventListener('keydown', function(e) {
+            if (e.key === 'Enter') {
+                document.querySelector('.send-request-btn').click();
+            }
+        });
+    </script>
+}

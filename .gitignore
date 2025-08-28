@@ -1,1 +1,54 @@
+# Build results
+bin/
+obj/
+out/
+
+# Visual Studio
 .vs/
+*.user
+*.suo
+*.userosscache
+*.sln.docstates
+
+# Rider / JetBrains
+.idea/
+*.sln.iml
+
+# DotCover, Coverlet, Code Coverage
+*.coverage
+*.coveragexml
+*.coveragejson
+*.opencover.xml
+*.cobertura.xml
+
+# Test results
+TestResults/
+*.trx
+*.log
+*.tlog
+*.coverage
+*.coveragexml
+
+# NuGet
+*.nupkg
+*.snupkg
+project.lock.json
+project.fragment.lock.json
+artifacts/
+packages/
+.nuget/
+
+# Resharper
+_ReSharper*/
+*.[Rr]e[Ss]harper
+*.DotSettings.user
+
+# Entity Framework
+Migrations/
+
+# Logs
+*.log
+
+# Other
+*.DS_Store
+Thumbs.db
