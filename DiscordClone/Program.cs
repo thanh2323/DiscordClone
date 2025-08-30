@@ -45,6 +45,9 @@ namespace DiscordClone
             })
             .AddEntityFrameworkStores<ApplicationDbContext>();
 
+            builder.Services.AddRepositories()
+                  .AddServices();
+
 
             // Add services to the container.
             builder.Services.AddControllersWithViews();
@@ -66,6 +69,7 @@ namespace DiscordClone
             app.UseAuthorization();
 
             app.MapStaticAssets();
+            app.MapHub<ChatHub>("/hubs/chat");
             app.MapControllerRoute(
                 name: "default",
                 pattern: "{controller=Home}/{action=Index}/{id?}")
