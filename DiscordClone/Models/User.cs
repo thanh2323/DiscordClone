@@ -1,31 +1,31 @@
-﻿using DiscordClone.Models.DiscordClone.Models;
-using Microsoft.AspNetCore.Identity;
-using System.ComponentModel.DataAnnotations;
+﻿    using DiscordClone.Models.DiscordClone.Models;
+    using Microsoft.AspNetCore.Identity;
+    using System.ComponentModel.DataAnnotations;
 
-namespace DiscordClone.Models
-{
-    public class User : IdentityUser
+    namespace DiscordClone.Models
     {
+        public class User : IdentityUser
+        {
    
-        public string DisplayName { get; set; } = string.Empty;
+            public string DisplayName { get; set; } = string.Empty;
 
-        public string? AvatarUrl { get; set; }
+            public string? AvatarUrl { get; set; }
 
-        public DateTime CreatedAt { get; set; } = DateTime.UtcNow;
+            public DateTime CreatedAt { get; set; } = DateTime.UtcNow;
 
-        public bool IsOnline { get; set; }
+            public bool IsOnline { get; set; }
 
-        public DateTime? LastOnline { get; set; } = DateTime.UtcNow;
+            public DateTime? LastOnline { get; set; } = DateTime.UtcNow;
 
-        public ICollection<Server> OwnedServers { get; set; } = new List<Server>();
+            public ICollection<Server> OwnedServers { get; set; } = new List<Server>();
 
-        public ICollection<ServerMember> ServerMembersShips { get; set; } = new List<ServerMember>();
+            public ICollection<ServerMember> ServerMembersShips { get; set; } = new List<ServerMember>();
 
-        public ICollection<Message> Messages { get; set; } = new List<Message>();
+            public ICollection<Message> Messages { get; set; } = new List<Message>();
 
-        public ICollection<RoomMember> RoomMembers { get; set; } = new List<RoomMember>();
+            public ICollection<RoomMember> RoomMembers { get; set; } = new List<RoomMember>();
 
 
 
+        }
     }
-}

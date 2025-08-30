@@ -1,0 +1,152 @@
+﻿@{
+    Layout = null;
+    ViewData["Title"] = "Register";
+}
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8" />
+    <title>@ViewData["Title"]</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+    <!-- Bootstrap 5 -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet" />
+
+    <style>
+        body {
+            background: linear-gradient(135deg, #6a11cb 0%, #2575fc 100%);
+            height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+
+        .register-card {
+            background: #fff;
+            border-radius: 1rem;
+            padding: 2rem;
+            width: 100%;
+            max-width: 400px;
+            box-shadow: 0 8px 24px rgba(0, 0, 0, 0.15);
+            animation: fadeIn 0.5s ease-in-out;
+        }
+
+            .register-card h2 {
+                text-align: center;
+                margin-bottom: 1.5rem;
+                font-weight: 600;
+                color: #333;
+            }
+
+        .form-control {
+            border-radius: 0.5rem;
+        }
+
+        .btn-primary {
+            border-radius: 0.5rem;
+            padding: 0.6rem;
+            font-weight: 600;
+        }
+
+        #result {
+            margin-top: 1rem;
+            font-size: 0.9rem;
+            word-break: break-word;
+        }
+    </style>
+</head>
+<body>
+    <div class="register-card">
+        <h2>Register</h2>
+        <form id="registerForm">
+            <div class="mb-3">
+                <label class="form-label">Username</label>
+                <input type="text" id="UserName" class="form-control" required />
+            </div>
+
+            <div class="mb-3">
+                <label class="form-label">Display Name</label>
+                <input type="text" id="DisplayName" class="form-control" required />
+            </div>
+
+            <div class="mb-3">
+                <label class="form-label">Email</label>
+                <input type="email" id="Email" class="form-control" required />
+            </div>
+
+            <div class="mb-3">
+                <label class="form-label">Password</label>
+                <input type="password" id="Password" class="form-control" required />
+            </div>
+
+            <div class="mb-3">
+                <label class="form-label">Confirm Password</label>
+                <input type="password" id="ConfirmPassword" class="form-control" required />
+            </div>
+
+            <button type="submit" class="btn btn-primary w-100">Register</button>
+        </form>
+
+        <div id="result" class="text-center text-muted"></div>
+    </div>
+
+    <script>
+        document.getElementById("registerForm").addEventListener("submit", async (e) => {
+            e.preventDefault();
+
+            const btn = e.target.querySelector("button[type=submit]");
+            btn.disabled = true;
+            btn.innerText = "Registering...";
+
+            const password = document.getElementById("Password").value;
+            const confirmPassword = document.getElementById("ConfirmPassword").value;
+
+            // Kiểm tra confirm password
+            if (password !== confirmPassword) {
+                document.getElementById("result").innerHTML =
+                    `<span class="text-danger">⚠️ Passwords do not match!</span>`;
+                btn.disabled = false;
+                btn.innerText = "Register";
+                return;
+            }
+
+            const dto = {
+                userName: document.getElementById("UserName").value,
+                displayName: document.getElementById("DisplayName").value,
+                email: document.getElementById("Email").value,
+                password: password
+            };
+
+            try {
+                const response = await fetch("/api/user", {
+                    method: "POST",
+                    headers: {
+                        "Content-Type": "application/json"
+                    },
+                    body: JSON.stringify(dto)
+                });
+
+                const result = await response.json();
+
+                if (response.ok) {
+                    document.getElementById("result").innerHTML =
+                        `<span class="text-success">✅ Registered successfully!</span>`;
+                         window.location.href = "/Home/Index";
+                } else {
+                    document.getElementById("result").innerHTML =
+                        `<span class="text-danger">❌ ${result.message || "Registration failed"}</span>`;
+                }
+            } catch (error) {
+                document.getElementById("result").innerHTML =
+                    `<span class="text-danger">⚠️ Error: ${error.message}</span>`;
+            } finally {
+                btn.disabled = false;
+                btn.innerText = "Register";
+            }
+        });
+    </script>
+
+</body>
+</html>

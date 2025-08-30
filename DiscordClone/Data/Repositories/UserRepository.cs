@@ -1,5 +1,6 @@
 ﻿using DiscordClone.Data.Repositories.IRepositories;
 using DiscordClone.Models;
+using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 
 namespace DiscordClone.Data.Repositories
@@ -7,9 +8,13 @@ namespace DiscordClone.Data.Repositories
     public class UserRepository : IUserRepository
     {
         private readonly ApplicationDbContext _context;
-        public UserRepository(ApplicationDbContext context)
+        private readonly IPasswordHasher<User> _passwordHasher;
+
+
+        public UserRepository(ApplicationDbContext context, IPasswordHasher<User> passwordHasher)
         {
             _context = context;
+            _passwordHasher = passwordHasher;
         }
      
 
@@ -23,8 +28,10 @@ namespace DiscordClone.Data.Repositories
         }
 
 
-        public async Task<User> AddAsync(User user)
+        public async Task<User> AddAsync(User user, string password)
         {
+            user.PasswordHash = _passwordHasher.HashPassword(user, password);
+
             await _context.Users.AddAsync(user);
             await _context.SaveChangesAsync();
             return user;

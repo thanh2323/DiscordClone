@@ -7,7 +7,7 @@ namespace DiscordClone.Data.Repositories.IRepositories
         Task<User?> GetByIdAsync(string id);
         Task<IEnumerable<User>> GetAllAsync();
 
-        Task<User> AddAsync(User user);
+        Task<User> AddAsync(User user, string password);
 
         Task<bool> UpdateAsync(User user);
 

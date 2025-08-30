@@ -1,4 +1,6 @@
-﻿namespace DiscordClone.DTOs
+﻿using System.ComponentModel.DataAnnotations;
+
+namespace DiscordClone.DTOs
 {
     public class UserDto
     {
@@ -20,6 +22,13 @@
         public string Password { get; set; } = string.Empty;
     }
 
+    public class LoginDto
+    {
+        public string Identifier { get; set; } = string.Empty;
+        public string Password { get; set; } = string.Empty;
+    }
+
+   
     public class UpdateUserDto
     {
         public string DisplayName { get; set; } = string.Empty;

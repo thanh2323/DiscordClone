@@ -9,6 +9,8 @@ namespace DiscordClone.Services.UserServices.Interface
 
         Task<ApiResponse<UserDto>> CreateUserAsync(CreateUserDto createUserDto);
 
+        Task<ApiResponse<UserDto>> LoginAsync(LoginDto loginDto);
+
         Task<ApiResponse<UserDto>> GetUserByIdAsync(string userId);
         Task<ApiResponse<UserDto>> GetUserByEmailAsync(string email);
 

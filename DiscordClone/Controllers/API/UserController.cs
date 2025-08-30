@@ -33,6 +33,13 @@ namespace DiscordClone.Controllers.API
             var result = await _userManagementService.CreateUserAsync(createUserDto);
             return result.Success ? Ok(result) : BadRequest(result);
         }
+        [HttpPost("login")]
+        [AllowAnonymous]
+        public async Task<ActionResult<ApiResponse<UserDto>>> Login([FromBody] LoginDto loginDto)
+        {
+            var result = await _userManagementService.LoginAsync(loginDto);
+            return result.Success ? Ok(result) : BadRequest(result);
+        }
 
         private string GetCurrentUserId()
         {

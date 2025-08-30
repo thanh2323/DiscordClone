@@ -8,6 +8,15 @@ namespace DiscordClone.Data.Configurations
     {
         public void Configure(EntityTypeBuilder<User> builder)
         {
+
+            // Username (unique)
+            builder.Property(u => u.UserName)
+                .IsRequired()
+                .HasMaxLength(100);
+
+            builder.HasIndex(u => u.UserName)
+                .IsUnique();
+
             builder.Property(u => u.DisplayName)
                  .IsRequired()
                  .HasMaxLength(100);

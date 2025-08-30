@@ -10,6 +10,8 @@ using DiscordClone.Services.RoomServices.Interface;
 using DiscordClone.Services.RoomServices;
 using DiscordClone.Services.ChannelService.Interface;
 using DiscordClone.Services.ChannelService;
+using DiscordClone.Models;
+using Microsoft.AspNetCore.Identity;
 
 namespace DiscordClone
 {
@@ -22,6 +24,7 @@ namespace DiscordClone
             services.AddScoped<IMessageRepository, MessageRepository>();
             services.AddScoped<IRoomRepository, RoomRepository>();
             services.AddScoped<IChannelRepository, ChannelRepository>();
+
             // ... thêm repo khác
             return services;
         }
@@ -40,6 +43,8 @@ namespace DiscordClone
             services.AddScoped<IRoomQueryService, RoomQueryService>();
             services.AddScoped<IChannelManagementService, ChannelManagementService>();
             services.AddScoped<IChannelQueryService, ChannelQueryService>();
+            services.AddScoped<IPasswordHasher<User>, PasswordHasher<User>>();
+
             // ... thêm service khác
             return services;
         }

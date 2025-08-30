@@ -4,6 +4,7 @@ using Microsoft.EntityFrameworkCore;
 using DiscordClone.Models;
 using DiscordClone.Data;
 using Microsoft.AspNetCore.Mvc.ModelBinding;
+using DiscordClone.DTOs;
 
 namespace DiscordClone.Controllers;
 
@@ -11,6 +12,8 @@ public class HomeController : Controller
 {
     private readonly ILogger<HomeController> _logger;
     private readonly ApplicationDbContext _context;
+
+
 
     public HomeController(ILogger<HomeController> logger, ApplicationDbContext context)
     {
@@ -38,6 +41,7 @@ public class HomeController : Controller
         return View();
     }
 
+   
     public async Task<IActionResult> Server(int? serverId = null)
     {
         // If no serverId provided, get the most recent server (for demo purposes)
